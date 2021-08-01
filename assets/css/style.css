@@ -1,0 +1,10 @@
+.hero {
+    margin: 0;
+    background-color: rgb(88, 144, 197);
+    text-align: center;
+
+}
+
+.hero h1 {
+    padding: 25px;
+}
