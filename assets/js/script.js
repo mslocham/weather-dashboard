@@ -40,7 +40,7 @@ var weatherForecast = function(coordInfo) {
 };
 
 var displayWeather = function(city) {
-    var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=0b39de7c5eeb24930b2ff17e2fadc282";
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=0b39de7c5eeb24930b2ff17e2fadc282";
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
