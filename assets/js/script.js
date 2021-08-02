@@ -33,10 +33,10 @@ var weatherForecast = function(coordInfo) {
             windEl.textContent += data.current.wind_speed + "MPH";
             humidityEl.textContent += data.current.humidity + "%";
             var iconCode = data.current.weather[0].icon;
-            uvindexEl.innerHTML += data.current.uvi + "<span><img src='https://openweathermap.org/img/w/' + iconCode + '.png'/></span>";
-            });
+            uvindexEl.innerHTML += data.current.uvi + `<img src="http://openweathermap.org/img/wn/${iconCode}@2x.png"/>`;
+        });
         } else {
-            alert("Error 2");
+            alert("Error Fetching Data");
         }
     })
 };
