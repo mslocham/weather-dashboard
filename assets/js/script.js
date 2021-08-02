@@ -12,14 +12,42 @@
 
 var citySearchEl = document.querySelector("#city-form");
 var cityNameEl = document.querySelector("#select-city");
+var displayTodayEl = document.getElementById("weather-display");
+var tempEl = document.getElementById("temp");
+var windEl = document.getElementById("wind");
+var humidityEl = document.getElementById("humidity");
+var uvindexEl = document.getElementById("uvindex");
 
-var displayWeather = function(city) {
-    var apiUrl = "pro.openweathermap.org/data/2.5/forecast/hourly?q=" + city + "&appid=616fb0ac35774d8ba54d7a3d00cc7f61";
+var weatherForecast = function(coordInfo) {
+    var lat = coordInfo.coord.lat;
+    var lon = coordInfo.coord.lon;
+    var apiUrl ="https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=&appid=0b39de7c5eeb24930b2ff17e2fadc282";
     
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
-            response.json().then(function (data) {
-                console.log(data);
+            response.json().then(function(data){
+            console.log(data);
+            var tempC = data.current.temp - 273.15;
+            tempEl.textContent += tempC.toFixed(2) + " Celsius";
+            windEl.textContent += data.current.wind_speed + "MPH";
+            humidityEl.textContent += data.current.humidity + "%";
+            uvindexEl.textContent += data.current.uvi;
+            });
+        } else {
+            alert("Error 2");
+        }
+    })
+};
+
+var displayWeather = function(city) {
+    var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=0b39de7c5eeb24930b2ff17e2fadc282";
+    fetch(apiUrl).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                var weatherInfo = data;
+                weatherForecast(weatherInfo);
+                var cityTitleEl = document.getElementById("city-name");
+                cityTitleEl.textContent = city + "(" + moment().format('l') + ")"; 
             });
         } else {
             alert("Error");
@@ -32,12 +60,15 @@ var displayWeather = function(city) {
 
 var formSubmitHandler = function(event){
     event.preventDefault();
+    tempEl.textContent = "Temp: ";
+    windEl.textContent = "Wind Speed: ";
+    humidityEl.textContent = "Humidity: ";
+    uvindexEl.textContent = "UV Index: ";
     var cityName = cityNameEl.value.trim();
 
     if (cityName) {
         displayWeather(cityName);
-        cityNameEl.value = "";
-        debugger;
+        cityNameEl.value = ""; 
     } else {
         alert("Please enter a city name");
     }
