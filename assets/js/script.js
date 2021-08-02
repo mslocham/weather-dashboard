@@ -18,6 +18,7 @@ var windEl = document.getElementById("wind");
 var humidityEl = document.getElementById("humidity");
 var uvindexEl = document.getElementById("uvindex");
 
+
 var weatherForecast = function(coordInfo) {
     var lat = coordInfo.coord.lat;
     var lon = coordInfo.coord.lon;
@@ -31,7 +32,8 @@ var weatherForecast = function(coordInfo) {
             tempEl.textContent += tempC.toFixed(2) + " Celsius";
             windEl.textContent += data.current.wind_speed + "MPH";
             humidityEl.textContent += data.current.humidity + "%";
-            uvindexEl.textContent += data.current.uvi;
+            var iconCode = data.current.weather[0].icon;
+            uvindexEl.innerHTML += data.current.uvi + "<span><img src='https://openweathermap.org/img/w/' + iconCode + '.png'/></span>";
             });
         } else {
             alert("Error 2");
