@@ -28,12 +28,29 @@ var weatherForecast = function(coordInfo) {
         if (response.ok) {
             response.json().then(function(data){
             console.log(data);
+            displayTodayEl.classList.add("blue-border") ;
             var tempC = data.current.temp - 273.15;
             tempEl.textContent += tempC.toFixed(2) + " Celsius";
             windEl.textContent += data.current.wind_speed + "MPH";
             humidityEl.textContent += data.current.humidity + "%";
             var iconCode = data.current.weather[0].icon;
             uvindexEl.innerHTML += data.current.uvi + `<img src="http://openweathermap.org/img/wn/${iconCode}@2x.png"/>`;
+        
+        for (let i = 0; i < 5; i++) {
+               var dailyTemp = data.daily[i].temp.day - 273.15;
+               var futureDate = new moment().add(i, 'day');
+               var dayInfo = document.createElement("li");
+               var iconCodeFuture = data.daily[i].weather[0].icon;
+               dayInfo.innerHTML = "<h2>"+futureDate.format('l') + "</h2>" + "<br>" +
+                `<img src="http://openweathermap.org/img/wn/${iconCodeFuture}@2x.png"/>`  + "<br>" +
+                 dailyTemp.toFixed(2) + " Celsius" + "<br>" + data.daily[i].wind_speed + "MPH" + 
+                 "<br>" +  data.daily[i].humidity + "%";
+               dayInfo.setAttribute("class", "daily-weather-display")
+               
+               var weatherDisplay = document.getElementById("daily-weather");
+               weatherDisplay.appendChild(dayInfo);
+        }
+        
         });
         } else {
             alert("Error Fetching Data");
@@ -74,6 +91,7 @@ var formSubmitHandler = function(event){
     } else {
         alert("Please enter a city name");
     }
+
 };
 
 citySearchEl.addEventListener("submit", formSubmitHandler);

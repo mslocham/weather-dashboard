@@ -3,6 +3,12 @@
     flex-direction: row;
 }
 
+.city-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .hero {
     margin: 0;
     background-color: rgb(88, 144, 197);
@@ -14,12 +20,18 @@
     padding: 25px;
 }
 
+.blue-border {
+    border: 2px solid rgb(88, 144, 197);
+}
+
 .info-display {
     display: flex;
     flex-direction: column;
     width: 700px;
-    border: steelblue 2px solid;
     margin-left: 20px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    /* border: 2px solid rgb(88, 144, 197); */
 }
 
 .card-body {
@@ -44,3 +56,37 @@
     flex-direction: column;
     padding: 0;
 }
+
+#city-names {
+    list-style: none;
+}
+
+#city-names button {
+    width: 80%;
+    height: 30px;
+}
+
+#weather-section {
+    display: flex;
+    flex-direction: column;
+}
+
+#five-days {
+    display: flex;  
+}
+
+#daily-weather {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: space-between;
+}
+
+.daily-weather-display {
+    background-color: rgb(88, 144, 197);
+    width: 150px;
+    margin: 15px;
+    padding-left: 3px;
+    padding-bottom: 3px;
+}
+
